@@ -1,2 +1,2 @@
 # gitHubActions-master
-Developing gitHub actions workflow
+Developing gitHub actions workflows for build deploy and test
