@@ -1,0 +1,10 @@
+name: Second Workflow
+on: workflow_dispatch
+jobs:
+  second-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Plan for Migration
+        run: echo "migrating from groovy to github actions"
+      - name : Done with migration
+        run: echo "Successful migration"
