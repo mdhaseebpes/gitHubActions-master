@@ -1,2 +1,14 @@
 .vscode
 .DS_Storegit
+
+node_modules
+build
+dist
+.env
+*.log
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
