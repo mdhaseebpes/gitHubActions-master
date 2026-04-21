@@ -1,14 +1,14 @@
 name: Output information
 on:
   pull_request:
-    types:[opened ,edited]
-  branches:
-      - 'dev-*' # dev-new dev-this-is-new
+    types: [opened, edited]
+    branches:
+      - "dev-*" # dev-new dev-this-is-new
       - main
   workflow_dispatch:
   push:
     branches:
-      - 'dev-*' # dev-new dev-this-is-new
+      - "dev-*" # dev-new dev-this-is-new
       - main
 jobs:
   info:
