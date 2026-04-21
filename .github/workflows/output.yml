@@ -1,7 +1,7 @@
 name: Output information
 on:
   pull_request:
-    types: [opened, edited]
+    types: [opened, edited ,synchronize]
     branches:
       - "dev-*" # dev-new dev-this-is-new
       - main
