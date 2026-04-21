@@ -38,3 +38,16 @@ jobs:
           path: |
             src/components
             package.json
+
+  deploy:
+    needs: info
+    runs-on: ubuntu-latest
+    steps:
+      - name: download the artifacts
+        uses: actions/download-artifact@v7
+        with:
+          name: components-files
+      - name: Output contents
+        run: ls
+      - name: Deploy
+        run: echo "Deploying...."
