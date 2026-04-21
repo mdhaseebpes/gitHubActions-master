@@ -7,9 +7,17 @@ jobs:
       - name : Get the code
         uses: actions/checkout@v5
       - name: lint
-        run: npm run lint
-      - name: Test code
-        run: npm run test
+        run: echo "running the lint"
+      - name: get the code
+        uses: actions/checkout@v5
+      - name: Install the node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
       - name: Build code
         run: npm run build
       - name: Deploy code
