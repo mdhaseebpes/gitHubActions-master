@@ -19,12 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get the code
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.artifact-name }}
       - name: Output contents
         run: ls
       - name: output information
-        run: echo "Deploying....
+        run: |
+          echo "Deploying...."
       - name: set result output
+        id: step-result
         run: echo "step-result=success" >> $GITHUB_OUTPUT
