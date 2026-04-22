@@ -1,0 +1,49 @@
+name: continue work-flow
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get the code
+        uses: actions/checkout@v5
+      - name: Install the node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        continue-on-error: true
+        id: test-details
+        run: npx vitest --run --reporter=default --reporter=json --outputFile=test-report.json
+      - name: upload the test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: test-report.json
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: get the code
+        uses: actions/checkout@v5
+      - name: Install the node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: npm ci
+      - name: Build the project
+        run: npm run build
+      - name: Deploy
+        run: echo "Deploying ..."
+  report:
+    needs: deploy
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: output information
+        run: |
+          echo "Deployment failed"
+          echo "Test report: ${{ steps.test-details.outputs.test-report }}"

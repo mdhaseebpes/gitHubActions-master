@@ -1,7 +1,7 @@
 name: Events demo
 on:
   pull_request:
-    types: [opened ,edited]
+    types: [opened ,edited ,closed]
   workflow_dispatch:
 jobs:
   events:
@@ -9,6 +9,12 @@ jobs:
     steps:
       - name: Output Github context
         run: echo "${{ toJSON(github.event) }}"
+      - name: get the code
+        uses: actions/checkout@v5
+      - name: Install the node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
       - name: Install dependencies
         run: npm ci
       - name: Run tests
