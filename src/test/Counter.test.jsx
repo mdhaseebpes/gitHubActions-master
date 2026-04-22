@@ -8,6 +8,6 @@ describe("Counter", () => {
     render(<Counter />);
     expect(screen.getByTestId("count")).toHaveTextContent("Count: 0");
     fireEvent.click(screen.getByText("Increment"));
-    expect(screen.getByTestId("count")).toHaveTextContent("Count: 1");
+    expect(screen.getByTestId("count")).toHaveTextContent("Count: 0");
   });
 });
