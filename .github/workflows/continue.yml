@@ -11,9 +11,9 @@ jobs:
         with:
           node-version: 24
       - name: Install dependencies
-        continue-on-error: true
         run: npm ci
       - name: Run tests
+        continue-on-error: true
         id: test-details
         run: npx vitest --run --reporter=default --reporter=json --outputFile=test-report.json
       - name: upload the test report
