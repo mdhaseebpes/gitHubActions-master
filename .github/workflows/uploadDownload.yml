@@ -1,4 +1,4 @@
-name: Output information
+name: upload Download workflows
 on:
   pull_request:
     types: [opened, edited, synchronize]

@@ -1,12 +1,18 @@
-name: Deploy Project
+name: matrix strategy
 on: [push,workflow_dispatch]
 jobs:
   build:
     continue-on-error: true
     strategy:
       matrix:
-        node-version: [18, 20]
+        node-version: [12,18, 20]
         operating-system: [ubuntu-latest, windows-latest]
+        include:
+          -node-version: 18
+          operating-system: ubuntu-latest
+        exclude:
+          -node-version: 12
+          operating-system: windows-latest
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: get the code

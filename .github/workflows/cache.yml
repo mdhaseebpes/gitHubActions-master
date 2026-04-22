@@ -1,7 +1,7 @@
 name: Deploy Project
 on:
   #push
-   workflow_dispatch:
+  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
       - name: Run tests
         run: npm test
   deploy:
-    needs:  test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: get the code
@@ -41,6 +41,6 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Build the project
-        run:  npm run build
+        run: npm run build
       - name: Deploy
-        run:  echo "Deploying ..."
+        run: echo "Deploying ..."
