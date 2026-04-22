@@ -1,12 +1,5 @@
 name: environmentVariables
 on:
-  push:
-    branches:
-      - main
-      - "dev-*"
-    paths:
-      - "github-workflows-finished-project/**"
-      - ".github/workflows/environmentVariables.yml"
   workflow_dispatch:
 env:
   MONGODB_DB_NAME: gha-demo

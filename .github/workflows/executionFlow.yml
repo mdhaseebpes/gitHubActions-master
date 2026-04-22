@@ -1,0 +1,22 @@
+name: execution flow
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get the code
+        uses: actions/checkout@v5
+      - name: Install the node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        id: test-details
+        run: npm test
+      - name: upload the test report
+        uses: actions/upload-artifacts@v6
+        with:
+          name: test-report
+          path: test-report.json
