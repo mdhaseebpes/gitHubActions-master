@@ -10,11 +10,13 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
+      - name: Install dependencies
+        run: npm ci
       - name: Run tests
         id: test-details
         run: npx vitest --run --reporter=default --reporter=json --outputFile=test-report.json
       - name: upload the test report
-        if: failure() && steps.test-details.outcome == 'failure'
+        if: always() && steps.test-details.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: test-report
