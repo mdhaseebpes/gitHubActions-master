@@ -1,4 +1,4 @@
-name: execution flow
+name: continue work-flow
 on: push
 jobs:
   test:
@@ -11,12 +11,12 @@ jobs:
         with:
           node-version: 24
       - name: Install dependencies
+        continue-on-error: true
         run: npm ci
       - name: Run tests
         id: test-details
         run: npx vitest --run --reporter=default --reporter=json --outputFile=test-report.json
       - name: upload the test report
-        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: test-report
