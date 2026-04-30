@@ -1,6 +1,6 @@
 name: Deploy Project
 on:
-  #push
+  push:
   workflow_dispatch:
 jobs:
   test:
@@ -12,14 +12,8 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
-      - name: cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - name: load and cache dependencies
+        uses: ./.github/actions/cached-deps
       - name: Run tests
         run: npm test
   deploy:
