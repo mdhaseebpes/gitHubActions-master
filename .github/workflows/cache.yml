@@ -1,5 +1,7 @@
 name: Deploy Project
-on: [workflow_dispatch]
+on:
+  push:
+  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -10,12 +12,17 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
-      - name: Install dependencies
-        run: npm ci
+      - name: load and cache dependencies
+        id: cache-deps
+        uses: ./.github/actions/cached-deps
+        with:
+          caching: 'false'
+      - name: Output information
+        run: echo "Cache used? ${{ steps.cache-deps.outputs.used-cache }}"
       - name: Run tests
         run: npm test
   deploy:
-    needs:  test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: get the code
@@ -24,9 +31,16 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
+      - name: cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Build the project
-        run:  npm run build
+        run: npm run build
       - name: Deploy
-        run:  echo "Deploying ..."
+        run: echo "Deploying ..."
