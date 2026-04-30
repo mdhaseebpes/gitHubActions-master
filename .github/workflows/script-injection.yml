@@ -4,6 +4,11 @@ on:
   issues:
     types:
       - opened
+      - edited
+      - reopened
+
+permissions:
+  issues: read
 
 jobs:
   check-issue-title:
@@ -14,7 +19,7 @@ jobs:
         env:
           TITLE: ${{ github.event.issue.title }}
         run: |
-          if [[ "$TITLE" == *"bug"* ]]; then
+          if [[ "${TITLE,,}" == *"bug"* ]]; then
             echo "Issue is about a bug!"
           else
             echo "Issue is not about a bug"
