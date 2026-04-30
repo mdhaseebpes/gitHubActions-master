@@ -1,0 +1,21 @@
+name: Script Injection Safe Example
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  check-issue-title:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check issue title safely
+        env:
+          TITLE: ${{ github.event.issue.title }}
+        run: |
+          if [[ "$TITLE" == *"bug"* ]]; then
+            echo "Issue is about a bug!"
+          else
+            echo "Issue is not about a bug"
+          fi
