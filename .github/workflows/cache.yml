@@ -14,6 +14,10 @@ jobs:
           node-version: 24
       - name: load and cache dependencies
         uses: ./.github/actions/cached-deps
+        with:
+          caching: 'false'
+      - name: Output information
+        run: echo "Cache used? ${{ steps.cache-deps.outputs.used-cache }}"
       - name: Run tests
         run: npm test
   deploy:
